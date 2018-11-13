@@ -1,0 +1,27 @@
+<!-- Imports polymer -->
+<link rel="import" href="../polymer/polymer.html">
+
+<!-- Defines element markup -->
+<dom-module id="hello-world">
+    <template>
+        <p>Hello <strong>{{name}}</strong> :)</p>
+        <p>Hello <strong>{{who}}</strong> :)</p>
+        <input type = "text" value = "{{name::input}}">
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+Polymer({
+    is: 'hello-world',
+    properties: {
+        name: {
+            type: String,
+            notify: true
+        }
+    },
+    ready: function(){
+    	this.name = "World"
+    }
+});
+</script>

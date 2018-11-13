@@ -1,0 +1,91 @@
+<link rel="import" href="../polymer/polymer.html">
+  <base href="http://polygit.org/polymer+:master/components/">
+  <link href="../paper-input/paper-input.html" rel="import">
+<!-- hydra-collection-->
+<dom-module id="test-collection">
+  <template>
+    <template is="dom-repeat" items="{{users}}">{{item}}</template>
+  </template>
+<script>
+Polymer({
+    is: 'test-collection',
+    behaviors: [
+      Polymer.Templatizer
+    ],
+    ready: function(){
+    	this.users = ['a','b','c'];
+    }
+});
+</script>
+</dom-module>
+
+<dom-module id="hydra-collection">
+<template>
+  <template id="tmpl">
+    <div>The value is: <span>{{i}}</span></div>
+  </template>
+   <div id="repeater"></div>
+</template>
+<script>
+Polymer({
+    is: 'hydra-collection',
+    behaviors: [
+      Polymer.Templatizer
+    ],
+    properties: {
+	    i: {
+		      type: String,
+		      notify: true
+	  	   }
+    },
+    ready: function(){
+    	var emps = ['x','y','z'];
+    	this.templatize(this.$.tmpl);
+    	for(var i = 0; i < emps.length; i++) {
+    		var clone = this.stamp({i:emps[i]});
+    		Polymer.dom(this.$.repeater).appendChild(clone.root);
+    	}
+    }
+});
+</script>  
+</dom-module>
+
+<dom-module id="test-app">
+	<template>
+		<template id="tmpl">
+		   <p>{{test}}</p>	
+		</template>
+		<div id="placehere"></div>
+	</template>
+<script>
+Polymer({
+  is: "test-app",
+  behaviors: [Polymer.Templatizer],
+  properties: {
+    test: {
+      type: String,
+      notify: true
+    },
+  },
+
+  ready: function() { 
+    this.templatize(this.$.tmpl);
+    var clone = this.stamp({test: "hii"});
+    //this.stamped = clone.root.querySelector('*');
+    Polymer.dom(this.$.placehere).appendChild(clone.root);
+  },
+  /*
+  _forwardParentProp: function(prop, value) {
+    if (this.stamped) {
+        this.stamped._templateInstance[prop] = value;
+    }
+  },
+
+  _forwardParentPath: function(path, value) {
+    if (this.stamped) {
+        this.stamped._templateInstance.notifyPath(path, value, true);
+    }
+  },*/
+});
+</script>
+</dom-module>
