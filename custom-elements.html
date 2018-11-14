@@ -1,0 +1,40 @@
+<link rel="import" href="../polymer/polymer.html">
+
+
+<script>
+	// register an element
+    MyElement = Polymer({
+      is: 'my-element',
+      // See below for lifecycle callbacks
+      created: function() {
+        this.textContent = 'My element!';
+      }
+    });
+	var el1 = new MyElement();
+
+	
+</script>
+
+<dom-module id="custom-input">
+    <template>
+        <input is="my-input">
+    </template>
+    <script>
+    	//polymer allows extension of htnl elements only
+	    MyInput = Polymer({
+	      is: 'my-input',
+	      extends: 'input',
+	      created: function() {
+	        this.style.border = '10px solid red';
+	      }
+	    });
+		var el2 = new MyInput();
+		console.log(el2 instanceof HTMLInputElement);
+		//var el3 = document.createElement('input', 'my-input');
+	    
+		Polymer({
+		  is: "custom-input"
+		});
+
+	    </script>
+</dom-module>
